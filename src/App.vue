@@ -13,6 +13,21 @@ const { storyblokApi } = storyblokInit({
   use: [apiPlugin],
 });
 
+// The bridge talks to the Visual Editor on app.storyblok.com unless told otherwise. This demo is
+// also opened from other Storyfront environments (preview, local), so it uses the origin of the
+// page that frames it. Without it the editor never hears from the bridge, and blocks are not
+// clickable.
+function getParentOrigin(): string | undefined {
+  try {
+    return (
+      window.location.ancestorOrigins?.[0] ??
+      (document.referrer ? new URL(document.referrer).origin : undefined)
+    );
+  } catch {
+    return undefined;
+  }
+}
+
 const story = ref<ISbStoryData | null>(null);
 const error = ref("");
 
@@ -21,7 +36,9 @@ onMounted(async () => {
   try {
     const { data } = await storyblokApi!.get(`cdn/stories/${slug}`, { version: "draft" });
     story.value = data.story;
-    useStoryblokBridge(data.story.id, (updated) => (story.value = updated));
+    useStoryblokBridge(data.story.id, (updated) => (story.value = updated), {
+      customParent: getParentOrigin(),
+    });
   } catch (cause) {
     error.value = `Could not load the story "${slug}". Check VITE_STORYBLOK_TOKEN. ${cause}`;
   }
