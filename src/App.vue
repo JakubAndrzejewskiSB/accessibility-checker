@@ -77,6 +77,12 @@ onMounted(async () => {
     </section>
 
     <section>
+      <h2>Text over a background image (warning)</h2>
+      <!-- axe cannot compute the contrast over an image, so it asks for a manual review. -->
+      <p class="over-image">This text is on a gradient background, so its contrast needs review.</p>
+    </section>
+
+    <section>
       <h2>Low-contrast text</h2>
       <p class="low-contrast">This text is light gray on a white background.</p>
     </section>
@@ -84,6 +90,12 @@ onMounted(async () => {
 </template>
 
 <style>
+.over-image {
+  padding: 24px;
+  color: #777777;
+  background-image: linear-gradient(90deg, #ffffff, #888888);
+}
+
 .low-contrast {
   color: #cccccc;
 }
