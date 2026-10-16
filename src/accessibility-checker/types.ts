@@ -7,12 +7,6 @@ export type AccessibilityCheckRequest = {
   requestId: string;
 };
 
-export type AccessibilityHighlightRequest = {
-  action: "accessibilityHighlight";
-  /** `null` clears the highlight. */
-  findingId: string | null;
-};
-
 export type AccessibilityReadyMessage = {
   action: "accessibilityReady";
   protocolVersion: number;
@@ -52,7 +46,7 @@ export type AccessibilityCategoryId =
   | "other";
 
 export type AccessibilityFinding = {
-  /** Unique within one check; used for highlight requests. */
+  /** Unique within one check. */
   id: string;
   ruleId: string;
   title: string;
@@ -76,6 +70,8 @@ export type AccessibilityCategory = {
 export type AccessibilityCheckResult = {
   checkedAt: string;
   url: string;
+  /** The axe tags of the rules that ran, as configured in the plugin. */
+  ruleTags: string[];
   totalChecks: number;
   counts: Record<AccessibilityFindingStatus, number>;
   categories: AccessibilityCategory[];
