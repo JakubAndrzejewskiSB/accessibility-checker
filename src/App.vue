@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {
   apiPlugin,
+  renderRichText,
   storyblokEditable,
   storyblokInit,
   useStoryblokBridge,
@@ -50,15 +51,32 @@ onMounted(async () => {
     <p v-if="error">{{ error }}</p>
     <template v-if="story">
       <h1>{{ story.name }}</h1>
-      <!-- Each block has an empty button, so its findings show the block's uid and component name. -->
-      <section
-        v-for="blok in story.content.content ?? []"
-        :key="blok._uid"
-        v-bind="storyblokEditable(blok)"
-      >
-        <h2>Block: {{ blok.component }}</h2>
-        <button></button>
-      </section>
+      <template v-for="blok in story.content.content ?? []" :key="blok._uid">
+        <div
+          v-if="blok.component === 'richText' || blok.component === 'section'"
+          v-bind="storyblokEditable(blok)"
+          v-html="renderRichText(blok.content)"
+        />
+        <div
+          v-else-if="blok.component === 'blokRichtext'"
+          v-bind="storyblokEditable(blok)"
+          v-html="renderRichText(blok.richtext)"
+        />
+        <figure v-else-if="blok.component === 'image'" v-bind="storyblokEditable(blok)">
+          <!-- An empty alt text in Storyblok renders no alt attribute, so axe reports it. -->
+          <img :src="blok.asset?.filename" :alt="blok.asset?.alt || undefined" />
+        </figure>
+        <article v-else-if="blok.component === 'feature'" v-bind="storyblokEditable(blok)">
+          <h2>{{ blok.name }}</h2>
+          <a
+            v-if="blok.link?.cached_url || blok.link?.url"
+            :href="blok.link.cached_url || blok.link.url"
+          >
+            Read more
+          </a>
+        </article>
+        <div v-else v-bind="storyblokEditable(blok)">Unknown component: {{ blok.component }}</div>
+      </template>
     </template>
 
     <section>
@@ -90,6 +108,11 @@ onMounted(async () => {
 </template>
 
 <style>
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 .over-image {
   padding: 24px;
   color: #777777;
