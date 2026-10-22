@@ -1,8 +1,9 @@
 # Accessibility checker demo
 
-Test site for the Visual Editor's A11y tab. It contains a copy of
-`@storyblok/accessibility-checker` (`src/accessibility-checker/`) that accepts requests from **any**
-origin, so it works with every Storyfront environment. For demos and tests only.
+Test site for the Visual Editor's A11y tab. It uses the published
+[`@storyblok/accessibility-checker`](https://www.npmjs.com/package/@storyblok/accessibility-checker)
+with `allowedOrigins` open to every origin (see `src/main.ts`), so it works with every Storyfront
+environment. For demos and tests only.
 
 ## Run locally
 

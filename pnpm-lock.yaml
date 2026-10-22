@@ -4,16 +4,19 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@storyblok/region-helper': ^1.6.0
+
 importers:
 
   .:
     dependencies:
+      '@storyblok/accessibility-checker':
+        specifier: ^0.1.0
+        version: 0.1.0
       '@storyblok/js':
         specifier: ^6.3.4
         version: 6.3.4(@floating-ui/dom@1.8.0)
-      axe-core:
-        specifier: ^4.14.0
-        version: 4.14.0
       vue:
         specifier: ^3.5.42
         version: 3.5.44(typescript@5.9.3)
@@ -363,11 +366,20 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@storyblok/accessibility-checker@0.1.0':
+    resolution: {integrity: sha512-iWB/38ssXMCnLaFTlg+W6GK78Ccau32K+1XUezMVnxU2x8l2hrYH2toTrv+FY/Tv5ssoCMD1jHKRXL6L9sZogg==}
+
   '@storyblok/js@6.3.4':
     resolution: {integrity: sha512-H5ZGryFm6yh9iLc0HpYYc1U4XgR9hiSD739qiSbdoYRrSrRnOxnSOc8IQu9eAQJwCrFzjrImYp3cpBKEuSp5dA==}
 
+  '@storyblok/live-preview@0.6.1':
+    resolution: {integrity: sha512-OFPfXlA/JdyAHZqxLtvrGwLKXx3YGsF3TpIhA3njThYRHmPv/x6ObcyiwMJKeyCzkdKaCTKgqxwgnBFAiZj8/A==}
+
   '@storyblok/preview-bridge@2.5.0':
     resolution: {integrity: sha512-/j2D8NpBBKeoXHvv9Txyh//6mTyr6OJYJxheTd6x1YbZ2LrDkppaxgSKJdEylWPPawFQPOzR3+Y2nyKUAeuKGA==}
+
+  '@storyblok/region-helper@1.6.0':
+    resolution: {integrity: sha512-e15MOI754w/1CqcaxRuaEwX7nnnX1D2pmmW55SQPBw9h2F1TyyRltf+PVSAk8Jgt+XO8W5Q8TgiSA612+OHCeQ==}
 
   '@storyblok/richtext@5.3.3':
     resolution: {integrity: sha512-p33JAwLxarQDibrSNtQGhs9Goo1IFiNRMwcxphtZlSXnJiiTRrKfrFy7Pj9WIqO/FVmdsJXyYBDK1thLU1Yzdw==}
@@ -991,6 +1003,12 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.64.6':
     optional: true
 
+  '@storyblok/accessibility-checker@0.1.0':
+    dependencies:
+      '@storyblok/live-preview': 0.6.1
+      '@storyblok/region-helper': 1.6.0
+      axe-core: 4.14.0
+
   '@storyblok/js@6.3.4(@floating-ui/dom@1.8.0)':
     dependencies:
       '@storyblok/preview-bridge': 2.5.0
@@ -1001,9 +1019,15 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
+  '@storyblok/live-preview@0.6.1':
+    dependencies:
+      '@storyblok/preview-bridge': 2.5.0
+
   '@storyblok/preview-bridge@2.5.0':
     dependencies:
       pure-parse: 0.0.0-beta.8
+
+  '@storyblok/region-helper@1.6.0': {}
 
   '@storyblok/richtext@5.3.3(@floating-ui/dom@1.8.0)':
     dependencies:
