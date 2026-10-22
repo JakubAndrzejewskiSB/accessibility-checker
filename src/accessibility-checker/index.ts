@@ -8,7 +8,7 @@ export * from "./types";
 //   Storyfront environment. Do not do this in a real website: any page that frames
 //   the site can read its HTML snippets.
 // - no workspace dependencies (editor detection is inlined).
-const pluginVersion = "demo";
+const packageVersion = "demo";
 
 function isInEditor(url: URL): boolean {
   return ["_storyblok", "_storyblok_c", "_storyblok_tk[space_id]"].every((param) =>
@@ -115,7 +115,8 @@ function startChecker({
       {
         action: "accessibilityReady",
         protocolVersion: accessibilityProtocolVersion,
-        pluginVersion,
+        packageVersion,
+        pluginVersion: packageVersion
       },
       origin,
     );
