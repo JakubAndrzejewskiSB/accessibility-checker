@@ -2,6 +2,7 @@ import { createAccessibilityChecker } from "@storyblok/accessibility-checker";
 import { createApp } from "vue";
 
 import App from "./App.vue";
+import "./styles.css";
 
 createAccessibilityChecker({
   // Demo only: the checker answers Storyblok's Visual Editor origins by default. This also lets
